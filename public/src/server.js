@@ -32,6 +32,10 @@ app.use(bodyParser.json())
 
 const PORT = process.env.PORT || 7979
 
+app.get('/', (req, res) => {
+    res.send('Response from root router')
+})
+
 app.listen(PORT, () => {
     console.log('Server is running on port', PORT)
 })
