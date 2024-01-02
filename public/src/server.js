@@ -47,5 +47,36 @@ mongo.connect().then(async () => {
     await collection.find().toArray().then((document) => {
         console.log(document);
     });
+
+    console.log("=============Sửa dữ liệu====================");
+    const documents_find = await collection.find({ name: "huyyy" }).toArray();
+
+    if (documents_find.length > 0) {
+        const document_to_update = documents[0]; // Sử dụng đối tượng document đầu tiên
+        const updateData = {
+            $set: {
+                name: "Huy - updated"
+            }
+        };
+
+        collection.updateOne(document_to_update, updateData).then(() => {
+            // Xử lý dữ liệu
+        });
+
+        await collection.find().toArray().then((documents) => {
+            console.log(documents);
+        });
+    } else {
+        console.log("Không tìm thấy bản ghi nào với tên 'huyyy'");
+    }
+
+    const document = {
+        userId: 378131426,
+        name: "Quang Thái 2",
+        createdAt: new Date("2023-08-14T12:10:29.594Z"), // Chuyển đổi ngày tháng thành đối tượng Date
+        __v: 0
+    };
+
+    await collection.insertOne(document);
 });
 console.log("Connect thành công")
